@@ -16,5 +16,7 @@ namespace TenEightVideo.Web.Configuration
         public string? GMailGoogleCertificatePassword { get; set; }
         public string? ServerEmailAddress { get; set; }
         public string? ServiceEmailAddress { get; set; }
+        public string? SalesEmailAddress { get; set; }
+
     }
 }

@@ -11,7 +11,7 @@ namespace TenEightVideo.Web.Services.Controllers
     [ApiController]
     public class MailController : ApiControllerBase
     {
-        public MailController(IMailManager mailManager, IOptions<ApiSettings> appSettingOptions, ILogger<MailController> logger) 
+        public MailController(IMailManager mailManager, IOptions<ApiSettings> appSettingOptions, ILogger<MailController> logger)
             : base(appSettingOptions, logger)
         {
             MailManager = mailManager;
@@ -33,6 +33,23 @@ namespace TenEightVideo.Web.Services.Controllers
             {
                 Logger.LogError(ex, "Error sending test email.");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error sending test email.");
+            }
+        }
+
+        [HttpPost("SendContactNotificationEmail")]
+        public IActionResult SendContactNotificationEmail([FromBody] ContactNotificationInfo info)
+        {
+            try
+            {
+                var sender = new MailAddress(ApiSettings.ServerEmailAddress!);
+                var recipient = new MailAddress(ApiSettings.SalesEmailAddress!);
+                MailManager.SendContactNotification(sender, recipient, info);
+                return Ok("Contact notification email sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "Error sending contact notification email.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error sending contact notification email.");
             }
         }
     }

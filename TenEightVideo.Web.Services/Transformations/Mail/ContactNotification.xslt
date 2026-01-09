@@ -11,12 +11,16 @@
       </head>
       <body>
         <p>
+          <b>Inquiry Type: </b>
+          <xsl:value-of select="inquiryType"/>
+        </p>
+        <p>
           <b>Name: </b>
           <xsl:value-of select="name"/>
         </p>
         <p>
-          <b>Company: </b>
-          <xsl:value-of select="company"/>
+          <b>Agency/Department: </b>
+          <xsl:value-of select="agencyOrDepartment"/>
         </p>
         <p>
           <b>E-mail Address: </b>
@@ -30,11 +34,7 @@
         <p>
           <b>Phone Number: </b>
           <xsl:value-of select="phoneNumber"/>
-        </p>
-        <p>
-          <b>Need Help With: </b>
-          <xsl:value-of select="subject"/>
-        </p>       
+        </p>        
         <p>
           <b>Message: </b>
         </p>

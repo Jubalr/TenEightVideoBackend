@@ -15,15 +15,12 @@ namespace TenEightVideo.Web.Mail
             EmailAddress = emailAddress;
         }
 
+        public string? InquiryType { get; set; }
         public string? Name { get; set; }
-        public string? Company { get; set; }
+        public string? AgencyOrDepartment { get; set; }
         public string EmailAddress { get; set; }
-        public string? PhoneNumber { get; set; }
-        public string? Subject { get; set; }
-        public string? LeadSource { get; set; }
+        public string? PhoneNumber { get; set; }        
         public string? Message { get; set; }
-
-        public bool TermsAcceptance { get; set; }
 
         public IXPathNavigable ToIXPathNavigable()
         {
@@ -31,14 +28,12 @@ namespace TenEightVideo.Web.Mail
             //Add Main element
             XmlElement info = document.CreateElement("contactNotificationInfo");
             document.AppendChild(info);
+            info.AppendTextElement("inquiryType", InquiryType!);
             info.AppendTextElement("name", Name!);
-            info.AppendTextElement("company", Company!);
+            info.AppendTextElement("agencyOrDepartment", AgencyOrDepartment!);
             info.AppendTextElement("emailAddress", EmailAddress!);
-            info.AppendTextElement("phoneNumber", PhoneNumber!);
-            info.AppendTextElement("subject", Subject!);
-            info.AppendTextElement("leadSource", LeadSource!);
-            info.AppendTextElement("message", Message!);
-            info.AppendTextElement("termsAcceptance", TermsAcceptance.ToString());
+            info.AppendTextElement("phoneNumber", PhoneNumber!);                        
+            info.AppendTextElement("message", Message!);            
             return document;
         }
     }

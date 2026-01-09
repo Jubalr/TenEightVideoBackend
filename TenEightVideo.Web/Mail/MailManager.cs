@@ -105,7 +105,7 @@ namespace TenEightVideo.Web.Mail
 
         private string GetXsltFileName(EmailType type)
         {
-            string fileName = "{0}{1}\\{2}.xslt";
+            string fileName = "{0}\\{1}\\{2}.xslt";
             fileName = string.Format(fileName, _contentRootPath, _mailTransformPath, type);
             var uri = new Uri(fileName);
             var converted = uri.AbsoluteUri;
