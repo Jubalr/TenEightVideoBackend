@@ -12,7 +12,7 @@ namespace TenEightVideo.Web.Mail
 {
     public class MailManager : IMailManager
     {
-        private static Dictionary<EmailType, XslCompiledTransform> _transforms;        
+        private static Dictionary<EmailType, XslCompiledTransform> _transforms = null!;        
         private string _contentRootPath;
         private string _mailTransformPath;
 
@@ -69,6 +69,14 @@ namespace TenEightVideo.Web.Mail
             string subject = info.Subject;
             string body = GetEmailBody(info, EmailType.WarrantyReport);
             SendEmail(sender, recipient, subject, body, null, null, bcc);
+        }
+
+        public void SendLeadMagnetNotification(MailAddress sender, MailAddress recipient, LeadMagnetInfo info)
+        {
+            string subject = $"Lead Magnet Notification - {info.PromotionName}";
+            string body = GetEmailBody(info, EmailType.LeadMagnetNotification);
+            var replyTo = new MailAddress(info.EmailAddress);
+            SendEmail(sender, recipient, subject, body, replyTo);
         }
 
         private string GetEmailBody(IMailData data, EmailType type)
@@ -185,5 +193,7 @@ namespace TenEightVideo.Web.Mail
             </html>";
             return emailBody;
         }
+
+        
     }
 }

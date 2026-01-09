@@ -25,7 +25,7 @@ namespace TenEightVideo.Web.Mail
             //Add Main element
             XmlElement info = document.CreateElement("warrantyReportInfo");
 
-            info.AppendTextElement("title", Subject);
+            info.AppendTextElement("title", Subject ?? string.Empty);
             info.AppendTextElement("periodStartDate", PeriodStartDate.ToString("MM/dd/yyyy HH:mm:ss"));
             info.AppendTextElement("periodEndDate", PeriodEndDate.ToString("MM/dd/yyyy HH:mm:ss"));
             info.AppendTextElement("totalCount", Records?.Sum(r => r.Count).ToString() ?? "0");

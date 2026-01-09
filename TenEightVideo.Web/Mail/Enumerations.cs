@@ -11,6 +11,7 @@ namespace TenEightVideo.Web.Mail
         WarrantyNotification = 1,
         ContactNotification = 4,
         EmailSubscriptionNotification = 6,
-        WarrantyReport = 7
+        WarrantyReport = 7,
+        LeadMagnetNotification = 8
     }
 }

@@ -14,5 +14,6 @@ namespace TenEightVideo.Web.Mail
         void SendTestEmail(MailAddress sender, MailAddress recipient);
         void SendWarrantyNotification(MailAddress sender, MailAddress recipient, WarrantyNotificationInfo info);        
         void SendWarrantyReport(MailAddress sender, MailAddress recipient, WarrantyReportInfo info, MailAddress bcc);
+        void SendLeadMagnetNotification(MailAddress sender, MailAddress recipient, LeadMagnetInfo info);
     }
 }

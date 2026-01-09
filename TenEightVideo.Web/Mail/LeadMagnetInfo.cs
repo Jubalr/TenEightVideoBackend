@@ -1,26 +1,26 @@
-﻿using System;
+﻿using Google.Apis.Gmail.v1.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.XPath;
 
-namespace TenEightVideo.Web.Mail
+namespace TenEightVideo.Web.Mail 
 {
-    public class ContactNotificationInfo : IMailData
+    public class LeadMagnetInfo : IMailData
     {
-        public ContactNotificationInfo(string emailAddress)
+        public LeadMagnetInfo(string emailAddress)
         {
             EmailAddress = emailAddress;
         }
 
-        public string? InquiryType { get; set; }
         public string? Name { get; set; }
         public string? AgencyOrDepartment { get; set; }
         public string EmailAddress { get; set; }
-        public string? PhoneNumber { get; set; }        
-        public string? Message { get; set; }
+        public string? PromotionName { get; set; }
 
         public IXPathNavigable ToIXPathNavigable()
         {
@@ -28,13 +28,13 @@ namespace TenEightVideo.Web.Mail
             //Add Main element
             XmlElement info = document.CreateElement("contactNotificationInfo");
             document.AppendChild(info);
-            info.AppendTextElement("inquiryType", InquiryType ?? string.Empty);
             info.AppendTextElement("name", Name ?? string.Empty);
             info.AppendTextElement("agencyOrDepartment", AgencyOrDepartment ?? string.Empty);
             info.AppendTextElement("emailAddress", EmailAddress ?? string.Empty);
-            info.AppendTextElement("phoneNumber", PhoneNumber ?? string.Empty);                        
-            info.AppendTextElement("message", Message ?? string.Empty);            
+            info.AppendTextElement("promotionName", PromotionName ?? string.Empty);
             return document;
         }
+
     }
+
 }

@@ -51,25 +51,25 @@ namespace TenEightVideo.Web.Mail
             XmlElement info = document.CreateElement("warrantyNotificationInfo");
             document.AppendChild(info);
             info.AppendTextElement("requestId", RequestId.ToString());
-            info.AppendTextElement("company", Company!);
-            info.AppendTextElement("firstName", FirstName!);
-            info.AppendTextElement("lastName", LastName!);
-            info.AppendTextElement("emailAddress", EmailAddress!);
-            info.AppendTextElement("phoneNumber", PhoneNumber!);
-            info.AppendTextElement("address1", Address1!);
-            info.AppendTextElement("address2", Address2!);
-            info.AppendTextElement("city", City!);
-            info.AppendTextElement("state", State!);
-            info.AppendTextElement("zipCode", ZipCode!);
-            info.AppendTextElement("country", Country!);
-            info.AppendTextElement("problemDescription", ProblemDescription!);
+            info.AppendTextElement("company", Company ?? string.Empty);
+            info.AppendTextElement("firstName", FirstName ?? string.Empty);
+            info.AppendTextElement("lastName", LastName ?? string.Empty);
+            info.AppendTextElement("emailAddress", EmailAddress ?? string.Empty);
+            info.AppendTextElement("phoneNumber", PhoneNumber ?? string.Empty);
+            info.AppendTextElement("address1", Address1 ?? string.Empty);
+            info.AppendTextElement("address2", Address2 ?? string.Empty);
+            info.AppendTextElement("city", City ?? string.Empty);
+            info.AppendTextElement("state", State ?? string.Empty);
+            info.AppendTextElement("zipCode", ZipCode ?? string.Empty);
+            info.AppendTextElement("country", Country ?? string.Empty);
+            info.AppendTextElement("problemDescription", ProblemDescription ?? string.Empty);
             info.AppendTextElement("termsAcceptance", TermsAcceptance.ToString());
 
             var parts = document.CreateElement("warrantyParts");
             foreach (var part in PartsRequested ?? [])
             {
                 var partElement = document.CreateElement("part");
-                partElement.AppendTextElement("name", part.Name!);
+                partElement.AppendTextElement("name", part.Name ?? string.Empty);
                 partElement.AppendTextElement("qty", part.Quantity.ToString());
                 parts.AppendChild(partElement);
             }
