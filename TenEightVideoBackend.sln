@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36705.20
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenEightVideo.Web.Services", "TenEightVideo.Web.Services\TenEightVideo.Web.Services.csproj", "{B6D2D724-6725-4FA4-97CD-4F61EBF96568}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenEightVideo.Web", "TenEightVideo.Web\TenEightVideo.Web.csproj", "{46999C3B-2BFA-4F1A-96B9-3B44637188BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6D2D724-6725-4FA4-97CD-4F61EBF96568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D2D724-6725-4FA4-97CD-4F61EBF96568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D2D724-6725-4FA4-97CD-4F61EBF96568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D2D724-6725-4FA4-97CD-4F61EBF96568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46999C3B-2BFA-4F1A-96B9-3B44637188BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46999C3B-2BFA-4F1A-96B9-3B44637188BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46999C3B-2BFA-4F1A-96B9-3B44637188BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46999C3B-2BFA-4F1A-96B9-3B44637188BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {352CA020-69FB-4CAD-B4F3-DEF0FA1E1050}
+	EndGlobalSection
+EndGlobal
