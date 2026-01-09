@@ -9,11 +9,7 @@ using System.Xml.XPath;
 namespace TenEightVideo.Web.Mail
 {
     public class WarrantyNotificationInfo : IMailData
-    {
-        public WarrantyNotificationInfo(string emailAddress)
-        {
-            EmailAddress = emailAddress;
-        }
+    {        
         public long RequestId { get; set; }
 
         public string? Company { get; set; }
@@ -22,7 +18,7 @@ namespace TenEightVideo.Web.Mail
 
         public string? LastName { get; set; }
 
-        public string EmailAddress { get; set; }
+        public string? EmailAddress { get; set; }
 
         public string? PhoneNumber { get; set; }
 

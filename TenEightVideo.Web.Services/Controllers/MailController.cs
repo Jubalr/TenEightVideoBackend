@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using System.Net.Mail;
 using TenEightVideo.Web.Configuration;
 using TenEightVideo.Web.Mail;
+using TenEightVideo.Web.Services.Models;
 
 namespace TenEightVideo.Web.Services.Controllers
 {
@@ -11,13 +12,13 @@ namespace TenEightVideo.Web.Services.Controllers
     [ApiController]
     public class MailController : ApiControllerBase
     {
+        private readonly IMailManager _mailManager;
         public MailController(IMailManager mailManager, IOptions<ApiSettings> appSettingOptions, ILogger<MailController> logger)
             : base(appSettingOptions, logger)
         {
-            MailManager = mailManager;
+            _mailManager = mailManager;
         }
-
-        protected IMailManager MailManager { get; }
+        
 
         [HttpPost("SendTestEmail")]
         public IActionResult SendTestEmail()
@@ -26,7 +27,7 @@ namespace TenEightVideo.Web.Services.Controllers
             {
                 var sender = new MailAddress(ApiSettings.ServerEmailAddress!);
                 var recipient = new MailAddress(ApiSettings.ServiceEmailAddress!);
-                MailManager.SendTestEmail(sender, recipient);
+                _mailManager.SendTestEmail(sender, recipient);
                 return Ok("Test email sent successfully.");
             }
             catch (Exception ex)
@@ -43,7 +44,7 @@ namespace TenEightVideo.Web.Services.Controllers
             {
                 var sender = new MailAddress(ApiSettings.ServerEmailAddress!);
                 var recipient = new MailAddress(ApiSettings.SalesEmailAddress!);
-                MailManager.SendContactNotification(sender, recipient, info);
+                _mailManager.SendContactNotification(sender, recipient, info);
                 return Ok("Contact notification email sent successfully.");
             }
             catch (Exception ex)
@@ -53,21 +54,21 @@ namespace TenEightVideo.Web.Services.Controllers
             }
         }
 
-        [HttpPost("SendLeadMagnetEmail")]
+        [HttpPost("SendLeadMagnetNotificationEmail")]
         public IActionResult SendLeadMagnetEmail([FromBody] LeadMagnetInfo info)
         {
             try
             {
                 var sender = new MailAddress(ApiSettings.ServerEmailAddress!);
                 var recipient = new MailAddress(ApiSettings.SalesEmailAddress!);
-                MailManager.SendLeadMagnetNotification(sender, recipient, info);
-                return Ok("Contact notification email sent successfully.");
+                _mailManager.SendLeadMagnetNotification(sender, recipient, info);
+                return Ok("Lead magnet notification email sent successfully.");
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "Error sending contact notification email.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error sending contact notification email.");
+                Logger.LogError(ex, "Error sending lead magnet notification email.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error sending lead magnet notification email.");
             }
-        }
+        }        
     }
 }

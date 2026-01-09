@@ -1,8 +1,11 @@
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using TenEightVideo.Web.Configuration;
+using TenEightVideo.Web.Data;
 using TenEightVideo.Web.Mail;
+using TenEightVideo.Web.Warranty;
 
 
 namespace TenEightVideo.Web.Services
@@ -39,6 +42,11 @@ namespace TenEightVideo.Web.Services
                     settings.MailTransformPath!, 
                     logger);
             });
+
+            builder.Services.AddScoped<IWarrantyRequestManager, WarrantyRequestManager>();
+
+            var connectionString = builder.Configuration.GetConnectionString("TenEightVideo");
+            builder.Services.AddDbContext<TenEightVideoDbContext>(options => options.UseSqlServer(connectionString));
 
             var app = builder.Build();
 
