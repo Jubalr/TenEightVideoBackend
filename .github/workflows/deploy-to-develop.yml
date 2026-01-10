@@ -34,13 +34,7 @@ jobs:
         run: dotnet build --no-restore --configuration Debug 
 
       - name: Publish the application
-        run: dotnet publish ".\TenEightVideo.Web.Services\TenEightVideo.Web.Services.csproj" -c Debug -o ${{ github.workspace }}/publish_output
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: webapi-publish-profile
-          path: ${{ github.workspace }}/publish_output
+        run: dotnet publish ".\TenEightVideo.Web.Services\TenEightVideo.Web.Services.csproj" -c Debug -o ./publish_output      
                  
   deploy:
     needs: build
@@ -49,7 +43,13 @@ jobs:
     env:
       ConnectionStrings__TenEightVideo: ${{ secrets.CONNECTION_STRING }}
     
-    steps:      
+    steps:    
+
+      - name: Copy build output to target folder
+        shell: cmd
+        run: |
+          robocopy ./publish_output/ "\inetpub\develop.services.10-8video.com" /e /COPY:DATSO /purge /dcopy:da /NFL /NDL /NP /NS /NC
+          IF %ERRORLEVEL% LEQ 7 (exit 0) ELSE (exit 1)  
 
       - name: Download artifact
         uses: actions/download-artifact@v4
