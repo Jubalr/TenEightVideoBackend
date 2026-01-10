@@ -46,7 +46,7 @@ jobs:
     steps:   
 
       - name: Stop IIS Website
-        run: appcmd stop site "develop.services.10-8video.com"
+        run: %windir%\System32\intersrv\appcmd stop site "develop.services.10-8video.com"
         shell: cmd # Use cmd shell for appcmd command
 
       - name: Copy build output to target folder
@@ -56,5 +56,5 @@ jobs:
           IF %ERRORLEVEL% LEQ 7 (exit 0) ELSE (exit 1)  
 
       - name: Start IIS Website
-        run: appcmd start site "develop.services.10-8video.com"
+        run: %windir%\System32\intersrv\appcmd start site "develop.services.10-8video.com"
         shell: cmd
