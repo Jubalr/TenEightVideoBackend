@@ -18,4 +18,10 @@
     <ProjectReference Include="..\TenEightVideo.Web\TenEightVideo.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="leafy-sanctuary-458316-k3-538aeb0c07bd.p12">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
