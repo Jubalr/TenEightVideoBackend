@@ -16,6 +16,10 @@ jobs:
       contents: write      
       
     steps:
+
+      - name: Clean build artifacts
+        run: dotnet clean && remove-item bin obj -Recurse -Force
+    
       - name: Checkout code
         uses: actions/checkout@v4
 
