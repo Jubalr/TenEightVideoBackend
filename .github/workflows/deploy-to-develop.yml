@@ -56,6 +56,18 @@ jobs:
           robocopy ./publish_output/ "\inetpub\develop.services.10-8video.com" /e /COPY:DATSO /purge /dcopy:da /NFL /NDL /NP /NS /NC /XF "web.config"
           IF %ERRORLEVEL% LEQ 7 (exit 0) ELSE (exit 1)  
 
+      - name: Edit a .NET Core database connection string in appsettings.json
+      # You may pin to the exact commit or the version.
+      # uses: benday-inc/edit-dbconnstr-in-appsettings@0ff77d3f76b78f1a9010551a2b4d9b406838dec6
+        uses: benday-inc/edit-dbconnstr-in-appsettings@v1.3
+        with:
+          # name of the connection string
+          name: TenEightVideo
+          # value for the connection string
+          connectionString: ${{ secrets.CONNECTION_STRING }} 
+          # path to your appsettings.json file
+          pathToSettingsFile: \inetpub\develop.services.10-8video.com\appsettings.json
+          
       - name: Start IIS Website
         run: c:\windows\System32\inetsrv\appcmd.exe start site "develop.services.10-8video.com"
         shell: cmd
