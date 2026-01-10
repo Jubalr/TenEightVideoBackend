@@ -56,5 +56,5 @@ jobs:
           IF %ERRORLEVEL% LEQ 7 (exit 0) ELSE (exit 1)  
 
       - name: Start IIS Website
-        run: c:windows\System32\inetsrv\appcmd.exe start site "develop.services.10-8video.com"
+        run: c:\windows\System32\inetsrv\appcmd.exe start site "develop.services.10-8video.com"
         shell: cmd
