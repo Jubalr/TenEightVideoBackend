@@ -9,6 +9,8 @@ using TenEightVideo.Web.Warranty;
 
 namespace TenEightVideo.Web.Services.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class WarrantyController : ApiControllerBase
     {
         private readonly IWarrantyRequestManager _warrantyRequestManager;
