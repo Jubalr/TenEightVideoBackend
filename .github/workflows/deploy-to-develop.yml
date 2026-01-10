@@ -43,7 +43,11 @@ jobs:
     env:
       ConnectionStrings__TenEightVideo: ${{ secrets.CONNECTION_STRING }}
     
-    steps:    
+    steps:   
+
+      - name: Stop IIS Website
+        run: appcmd stop site "develop.services.10-8video.com"
+        shell: cmd # Use cmd shell for appcmd command
 
       - name: Copy build output to target folder
         shell: cmd
@@ -51,8 +55,6 @@ jobs:
           robocopy ./publish_output/ "\inetpub\develop.services.10-8video.com" /e /COPY:DATSO /purge /dcopy:da /NFL /NDL /NP /NS /NC
           IF %ERRORLEVEL% LEQ 7 (exit 0) ELSE (exit 1)  
 
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: webapi-publish-profile
-          path: C:\inetpub\develop.services.10-8video.com
+      - name: Start IIS Website
+        run: appcmd start site "develop.services.10-8video.com"
+        shell: cmd
