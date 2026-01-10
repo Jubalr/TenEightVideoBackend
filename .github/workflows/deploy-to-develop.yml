@@ -43,7 +43,7 @@ jobs:
       - name: Copy build output to target folder
         shell: cmd
         run: |
-          robocopy ./publish_output/ "\websites\develop.services.10-8video.com" /e /zb /copyall /purge /dcopy:da /NFL /NDL /NP /NS /NC
+          robocopy ./publish_output/ "\inetpub\develop.services.10-8video.com" /e /zb /copyall /purge /dcopy:da /NFL /NDL /NP /NS /NC
           IF %ERRORLEVEL% LEQ 7 (exit 0) ELSE (exit 1)      
       
          
