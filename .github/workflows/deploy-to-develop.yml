@@ -31,7 +31,7 @@ jobs:
         run: dotnet build --no-restore --configuration Debug 
 
       - name: Publish the application
-        run: dotnet publish "TenEightVideo.Web.Services.csproj" -c Debug -o ${{ github.workspace }}/publish_output
+        run: dotnet publish ".\TenEightVideo.Web.Services\TenEightVideo.Web.Services.csproj" -c Debug -o ${{ github.workspace }}/publish_output
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
