@@ -1,1 +1,51 @@
+name: Deploy to Dev
 
+on:
+  push: 
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: self-hosted
+    environment: development
+    permissions:
+      checks: write
+      contents: write      
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET        
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x' 
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build the project
+        run: dotnet build --configuration Debug
+
+      - name: Publish the application
+        run: dotnet publish --configuration Debug --output ./publish_output
+                 
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    environment: development
+    
+    steps:
+    
+      - name: Copy build output to target folder
+        shell: cmd
+        run: |
+          robocopy ./publish_output/ "\websites\develop.services.10-8video.com" /e /zb /copyall /purge /dcopy:da /NFL /NDL /NP /NS /NC
+          IF %ERRORLEVEL% LEQ 7 (exit 0) ELSE (exit 1)      
+      
+         
+
+      
