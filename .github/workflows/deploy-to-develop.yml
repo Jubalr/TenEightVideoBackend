@@ -1,5 +1,8 @@
 name: Deploy to Dev
 
+env:
+  DOTNET_ENVIRONMENT: Development
+
 on:
   push: 
     branches:
