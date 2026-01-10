@@ -10,7 +10,7 @@ jobs:
 
   build:
     runs-on: self-hosted
-    environment: development
+    environment: Development
     permissions:
       checks: write
       contents: write      
@@ -36,9 +36,13 @@ jobs:
   deploy:
     needs: build
     runs-on: self-hosted
-    environment: development
+    environment: Development
     
     steps:
+
+      - name: Set environment secrets
+        env:
+          ConnectionStrings__TenEightVideo: ${{ secrets.CONNECTION_STRING }}
     
       - name: Copy build output to target folder
         shell: cmd
