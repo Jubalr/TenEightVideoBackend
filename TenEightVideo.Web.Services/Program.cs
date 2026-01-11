@@ -23,6 +23,33 @@ namespace TenEightVideo.Web.Services
                 loggingBuilder.AddEventLog(eventLogBuilder => eventLogBuilder.SourceName = "10-8Video.com")                
                     );
             builder.Services.AddControllers();
+
+            // Define CORS policies
+            var webApiConsumersDev = "WebApiConsumersDev";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: webApiConsumersDev,
+                    policy =>
+                    {
+                        policy.WithOrigins("https://develop.services.10-8video.com")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    });
+            });
+
+            var webApiConsumersProd = "WebApiConsumersProd";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: webApiConsumersProd,
+                    policy =>
+                    {
+                        policy.WithOrigins("https://services.10-8video.com")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    });
+            });
+
+
             builder.Services.AddEndpointsApiExplorer();
             //builder.Services.AddSwaggerGen();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -49,16 +76,25 @@ namespace TenEightVideo.Web.Services
             builder.Services.AddDbContext<TenEightVideoDbContext>(options => options.UseSqlServer(connectionString));
 
             var app = builder.Build();
+            
+            app.UseHttpsRedirection();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
                 //app.UseSwagger();
-                app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "Open API" ));
+                app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "Open API"));
+
+                // Apply the CORS policy
+                app.UseCors(webApiConsumersDev);
+            }
+            else
+            {
+                // Apply the CORS policy
+                app.UseCors(webApiConsumersProd);
             }
 
-            app.UseHttpsRedirection();
             app.UseAuthorization();
 
             app.MapControllers();
