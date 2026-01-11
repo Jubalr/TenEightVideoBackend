@@ -11,41 +11,69 @@ jobs:
   build:
     runs-on: self-hosted
     environment: Production
+    env:
+      ConnectionStrings__TenEightVideo: ${{ secrets.CONNECTION_STRING }}
     permissions:
       checks: write
       contents: write      
       
     steps:
+
+      - name: Clean build artifacts
+        run: dotnet clean 
+          
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup .NET        
-        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x' 
+          fetch-depth: 0
+
+      - name: Clean previous build artifacts and untracked files
+        # This command removes all untracked files and directories.
+        run: git clean -fdxq
+
+      #- name: Setup .NET        
+      #  uses: actions/setup-dotnet@v4
+      #  with:
+      #    dotnet-version: '9.0.x' 
 
       - name: Restore dependencies
         run: dotnet restore
 
       - name: Build the project
-        run: dotnet build --configuration Release
+        run: dotnet build --no-restore --configuration Release
 
       - name: Publish the application
-        run: dotnet publish --configuration Release --output ./publish_output
+        run: dotnet publish ".\TenEightVideo.Web.Services\TenEightVideo.Web.Services.csproj" -c Release -o ./publish_output      
                  
   deploy:
     needs: build
     runs-on: self-hosted
     environment: Production
     
-    steps:
-    
+    steps:   
+
+      - name: Stop IIS Website
+        run: c:\windows\System32\inetsrv\appcmd.exe stop site "services.10-8video.com"
+        shell: cmd # Use cmd shell for appcmd command
+
       - name: Copy build output to target folder
         shell: cmd
         run: |
-          robocopy ./publish_output/ "\inetpub\services.10-8video.com" /e /zb /copyall /purge /dcopy:da /NFL /NDL /NP /NS /NC
-          IF %ERRORLEVEL% LEQ 7 (exit 0) ELSE (exit 1)      
-      
-         
+          robocopy ./publish_output/ "\inetpub\services.10-8video.com" /e /COPY:DATSO /purge /dcopy:da /NFL /NDL /NP /NS /NC /XF "web.config"
+          IF %ERRORLEVEL% LEQ 7 (exit 0) ELSE (exit 1)  
 
-      
+      - name: Edit a .NET Core database connection string in appsettings.json
+      # You may pin to the exact commit or the version.
+      # uses: benday-inc/edit-dbconnstr-in-appsettings@0ff77d3f76b78f1a9010551a2b4d9b406838dec6
+        uses: benday-inc/edit-dbconnstr-in-appsettings@v1.3
+        with:
+          # name of the connection string
+          name: TenEightVideo
+          # value for the connection string
+          connectionString: ${{ secrets.CONNECTION_STRING }} 
+          # path to your appsettings.json file
+          pathToSettingsFile: \inetpub\services.10-8video.com\appsettings.json
+          
+      - name: Start IIS Website
+        run: c:\windows\System32\inetsrv\appcmd.exe start site "services.10-8video.com"
+        shell: cmd
