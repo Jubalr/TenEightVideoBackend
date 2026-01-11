@@ -31,7 +31,7 @@ namespace TenEightVideo.Web.Services
                 options.AddPolicy(name: webApiConsumersDev,
                     policy =>
                     {
-                        policy.WithOrigins("https://develop.services.10-8video.com")
+                        policy.WithOrigins("https://develop.services.10-8video.com", "http://localhost:3000")
                               .AllowAnyHeader()
                               .AllowAnyMethod();
                     });
