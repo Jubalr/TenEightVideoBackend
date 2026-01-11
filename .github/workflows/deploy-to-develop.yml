@@ -56,6 +56,10 @@ jobs:
         run: c:\windows\System32\inetsrv\appcmd.exe stop site "develop.services.10-8video.com"
         shell: cmd # Use cmd shell for appcmd command
 
+      - name: Stop application pool
+        run: c:\windows\System32\inetsrv\appcmd.exe stop apppool /apppool.name:"develop.services.10-8video.com"
+        shell: cmd # Use cmd shell for appcmd command
+
       - name: Copy build output to target folder
         shell: cmd
         run: |
@@ -74,6 +78,12 @@ jobs:
           # path to your appsettings.json file
           pathToSettingsFile: \inetpub\develop.services.10-8video.com\appsettings.json
           
+      - name: Start application pool
+        run: c:\windows\System32\inetsrv\appcmd.exe start apppool /apppool.name:"develop.services.10-8video.com"
+        shell: cmd # Use cmd shell for appcmd command
+        
       - name: Start IIS Website
         run: c:\windows\System32\inetsrv\appcmd.exe start site "develop.services.10-8video.com"
         shell: cmd
+
+      
