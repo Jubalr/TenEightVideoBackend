@@ -11,13 +11,22 @@ jobs:
   build:
     runs-on: self-hosted
     environment: Development
+    env:
+      ConnectionStrings__TenEightVideo: ${{ secrets.CONNECTION_STRING }}
     permissions:
       checks: write
       contents: write      
       
     steps:
+      
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clean previous build artifacts and untracked files
+        # This command removes all untracked files and directories.
+        run: git clean -fdxq
 
       # We can safely assume .NET is already installed
       #- name: Setup .NET        
@@ -37,9 +46,7 @@ jobs:
   deploy:
     needs: build
     runs-on: self-hosted
-    environment: Development
-    env:
-      ConnectionStrings__TenEightVideo: ${{ secrets.CONNECTION_STRING }}
+    environment: Development    
     
     steps:      
             
