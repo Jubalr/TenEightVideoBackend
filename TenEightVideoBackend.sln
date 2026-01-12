@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenEightVideo.Web.Services"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenEightVideo.Web", "TenEightVideo.Web\TenEightVideo.Web.csproj", "{46999C3B-2BFA-4F1A-96B9-3B44637188BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenEightVideo.JobRunner", "TenEightVideo.Console.JobRunner\TenEightVideo.JobRunner.csproj", "{6E521A95-551C-45FB-AC8D-0FE81336991E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{46999C3B-2BFA-4F1A-96B9-3B44637188BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46999C3B-2BFA-4F1A-96B9-3B44637188BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46999C3B-2BFA-4F1A-96B9-3B44637188BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E521A95-551C-45FB-AC8D-0FE81336991E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E521A95-551C-45FB-AC8D-0FE81336991E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E521A95-551C-45FB-AC8D-0FE81336991E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E521A95-551C-45FB-AC8D-0FE81336991E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,6 +6,7 @@ on:
       - main
     paths-ignore:
       - .github/workflows/deploy-to-develop.yml 
+      - TenEightVideo.Console.JobRunner/**
   workflow_dispatch:
 
 jobs:
