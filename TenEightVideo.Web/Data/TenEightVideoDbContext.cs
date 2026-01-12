@@ -11,13 +11,15 @@ namespace TenEightVideo.Web.Data
 {
     public partial class TenEightVideoDbContext : DbContext
     {
-        public TenEightVideoDbContext(DbContextOptions options)
+        public TenEightVideoDbContext(DbContextOptions<TenEightVideoDbContext> options)
             : base(options)
         {
         }
              
         public DbSet<WarrantyRequestPart> WarrantyRequestParts { get; set; }
         public DbSet<WarrantyRequest> WarrantyRequests { get; set; }
+
+        public DbSet<ProcessSchedule> ProcessSchedules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
