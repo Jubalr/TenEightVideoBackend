@@ -4,6 +4,8 @@ on:
   push: 
     branches:
       - develop
+    paths-ignore:
+      - .github/workflows/deploy-to-main.yml    
   workflow_dispatch:
 
 jobs:
