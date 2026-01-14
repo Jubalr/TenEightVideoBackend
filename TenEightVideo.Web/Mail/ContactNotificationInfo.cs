@@ -21,6 +21,12 @@ namespace TenEightVideo.Web.Mail
         public string EmailAddress { get; set; }
         public string? PhoneNumber { get; set; }        
         public string? Message { get; set; }
+        public int EstimatedFleetSize { get; set; }
+        public string JobTitle { get; set; }
+        public string PdfSpecsRequested { get; set; }
+        public string PreferredContactMethod { get; set; }
+        public string State { get; set; }
+        public string SystemsOfInterest { get; set; }
 
         public IXPathNavigable ToIXPathNavigable()
         {
@@ -33,7 +39,13 @@ namespace TenEightVideo.Web.Mail
             info.AppendTextElement("agencyOrDepartment", AgencyOrDepartment ?? string.Empty);
             info.AppendTextElement("emailAddress", EmailAddress ?? string.Empty);
             info.AppendTextElement("phoneNumber", PhoneNumber ?? string.Empty);                        
-            info.AppendTextElement("message", Message ?? string.Empty);            
+            info.AppendTextElement("message", Message ?? string.Empty);
+            info.AppendTextElement("estimatedFleetSize", EstimatedFleetSize > 0 ? EstimatedFleetSize.ToString() : string.Empty);
+            info.AppendTextElement("jobTitle", JobTitle ?? string.Empty);
+            info.AppendTextElement("pdfSpecsRequested", PdfSpecsRequested ?? string.Empty);
+            info.AppendTextElement("preferredContactMethod", PreferredContactMethod ?? string.Empty);
+            info.AppendTextElement("state", State ?? string.Empty);
+            info.AppendTextElement("systemsOfInterest", SystemsOfInterest ?? string.Empty);
             return document;
         }
     }

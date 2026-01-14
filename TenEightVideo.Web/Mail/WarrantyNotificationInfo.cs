@@ -21,6 +21,8 @@ namespace TenEightVideo.Web.Mail
         public string? EmailAddress { get; set; }
 
         public string? PhoneNumber { get; set; }
+        
+        public string? SerialNumber { get; set; }
 
         public string? Address1 { get; set; }
 
@@ -52,6 +54,7 @@ namespace TenEightVideo.Web.Mail
             info.AppendTextElement("lastName", LastName ?? string.Empty);
             info.AppendTextElement("emailAddress", EmailAddress ?? string.Empty);
             info.AppendTextElement("phoneNumber", PhoneNumber ?? string.Empty);
+            info.AppendTextElement("serialNumber", SerialNumber ?? string.Empty);
             info.AppendTextElement("address1", Address1 ?? string.Empty);
             info.AppendTextElement("address2", Address2 ?? string.Empty);
             info.AppendTextElement("city", City ?? string.Empty);
