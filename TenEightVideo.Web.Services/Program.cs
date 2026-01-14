@@ -43,7 +43,7 @@ namespace TenEightVideo.Web.Services
                 options.AddPolicy(name: webApiConsumersProd,
                     policy =>
                     {
-                        policy.WithOrigins("https://10-8video.com","https://main.10-8video.com")
+                        policy.WithOrigins("https://www.10-8video.com", "https://10-8video.com")
                               .AllowAnyHeader()
                               .AllowAnyMethod();
                     });
