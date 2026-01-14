@@ -22,11 +22,11 @@ namespace TenEightVideo.Web.Mail
         public string? PhoneNumber { get; set; }        
         public string? Message { get; set; }
         public int EstimatedFleetSize { get; set; }
-        public string JobTitle { get; set; }
-        public string PdfSpecsRequested { get; set; }
-        public string PreferredContactMethod { get; set; }
-        public string State { get; set; }
-        public string SystemsOfInterest { get; set; }
+        public string? JobTitle { get; set; }
+        public string? PdfSpecsRequested { get; set; }
+        public string? PreferredContactMethod { get; set; }
+        public string? State { get; set; }
+        public string? SystemsOfInterest { get; set; }
 
         public IXPathNavigable ToIXPathNavigable()
         {
