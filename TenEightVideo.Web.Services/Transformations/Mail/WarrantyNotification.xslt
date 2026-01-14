@@ -66,6 +66,14 @@
           </tr>
           <tr>
             <td style="font-weight:bold;width:200px;">
+              Serial Number
+            </td>
+            <td>
+              <xsl:value-of select="serialNumber"/>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold;width:200px;">
               Address 1
             </td>
             <td>

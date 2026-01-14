@@ -15,12 +15,20 @@
           <xsl:value-of select="inquiryType"/>
         </p>
         <p>
-          <b>Name: </b>
+          <b>Agency/Department: </b>
+          <xsl:value-of select="agencyOrDepartment"/>
+        </p>
+        <p>
+          <b>State: </b>
+          <xsl:value-of select="state"/>
+        </p>
+        <p>
+          <b>Contact Name: </b>
           <xsl:value-of select="name"/>
         </p>
         <p>
-          <b>Agency/Department: </b>
-          <xsl:value-of select="agencyOrDepartment"/>
+          <b>Job Title/Rank: </b>
+          <xsl:value-of select="jobTitle"/>
         </p>
         <p>
           <b>E-mail Address: </b>
@@ -34,7 +42,23 @@
         <p>
           <b>Phone Number: </b>
           <xsl:value-of select="phoneNumber"/>
-        </p>        
+        </p>
+        <p>
+          <b>Preferred Contact Method: </b>
+          <xsl:value-of select="preferredContactMethod"/>
+        </p>
+        <p>
+          <b>Systems of Interest: </b>
+          <xsl:value-of select="systemsOfInterest"/>
+        </p>
+        <p>
+          <b>PDF Specs Requested: </b>
+          <xsl:value-of select="pdfSpecsRequested"/>
+        </p>
+        <p>
+          <b>Estimated Fleet Size/Number of Units: </b>
+          <xsl:value-of select="estimatedFleetSize"/>
+        </p>
         <p>
           <b>Message: </b>
         </p>

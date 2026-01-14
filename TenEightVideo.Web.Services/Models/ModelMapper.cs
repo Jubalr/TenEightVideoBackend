@@ -12,6 +12,7 @@ namespace TenEightVideo.Web.Services.Models
             request.LastName = model.LastName;
             request.EmailAddress = model.EmailAddress;
             request.PhoneNumber = model.PhoneNumber;
+            request.SerialNumber = model.SerialNumber;
             request.Address1 = model.Address1;
             request.Address2 = model.Address2;
             request.City = model.City;
@@ -39,6 +40,7 @@ namespace TenEightVideo.Web.Services.Models
             info.LastName = model.LastName;
             info.EmailAddress = model.EmailAddress;
             info.PhoneNumber = model.PhoneNumber;
+            info.SerialNumber = model.SerialNumber;
             info.Address1 = model.Address1;
             info.Address2 = model.Address2;
             info.City = model.City;
