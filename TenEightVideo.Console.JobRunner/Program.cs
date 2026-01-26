@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.EventLog;
 using Org.BouncyCastle.Cms;
 using System.CommandLine;
 using System.Net.Mail;
@@ -27,11 +28,11 @@ namespace TenEightVideo.JobRunner
             //Parse command line args
             var parser = GetRootCommand();
             var parseResult = parser.Parse(args);
+            JobStatus result;
             if (!parseResult.Errors.Any())
             {
                 var jobName = parseResult.GetValue<string>("-job");
-                ProcessJob(jobName);
-                return JobStatus.Success;
+                result = ProcessJob(jobName);                
             }
             else
             {
@@ -39,8 +40,10 @@ namespace TenEightVideo.JobRunner
                 {
                     Console.WriteLine(error.Message);
                 }
-                return JobStatus.Failure;
+                result = JobStatus.Failure;
             }
+            _logger?.LogInformation("Job Runner finished with job status: {jobStatus}", result.Value);
+            return result;
         }
 
         private static IConfigurationRoot ConfigureSettings()
@@ -49,6 +52,7 @@ namespace TenEightVideo.JobRunner
             return new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddUserSecrets<Program>()
             .Build();
         }
 
@@ -59,24 +63,35 @@ namespace TenEightVideo.JobRunner
             {
                 // Add the console logging provider
                 builder.AddConsole();
+                if (OperatingSystem.IsWindows())
+                {
+                    builder.AddEventLog(new EventLogSettings()
+                    {
+                        SourceName = "TenEightVideo Job Runner",
+                        LogName = "Application"
+                    });
+                }
                 // Configure minimum log level (optional, defaults to Information)
                 builder.SetMinimumLevel(LogLevel.Information);
             });                       
         }
 
-        private static void ProcessJob(string? jobName)
+        private static JobStatus ProcessJob(string? jobName)
         {
             switch (jobName)
             {
                 case JOB_NAME_MONTHLY_WARRANTY_REPORT:
                     {
-                        DoMonthlyWarrantyReportJob();                        
-                        break;
+                        return DoMonthlyWarrantyReportJob();                        
                     }
                 case JOB_NAME_YEARLY_WARRANTY_REPORT:
                     {
-                        DoYearlyWarrantyReportJob();                        
-                        break;
+                        return DoYearlyWarrantyReportJob();
+                    }
+                default:
+                    {                        
+                        _logger?.LogError($"Unknown job name: {jobName}");
+                        return JobStatus.Failure;
                     }
             }
         }
@@ -85,6 +100,7 @@ namespace TenEightVideo.JobRunner
         {
             try
             {
+                _logger?.LogInformation("Starting Yearly Warranty Report job.");
                 var settings = _configuration!.GetSection("AppSettings").Get<AppSettings>();
                 if (settings == null)
                     throw new Exception("AppSettings section is missing from configuration.");
@@ -124,7 +140,7 @@ namespace TenEightVideo.JobRunner
 
         private static WarrantyScheduleProcessor GetWarrantyProcessor(AppSettings settings)
         {
-            var connectionString = _configuration!.GetConnectionString("TenEightVideoDatabase");
+            var connectionString = _configuration!.GetConnectionString("TenEightVideo");
             var mailLogger = _loggerFactory!.CreateLogger<GMailManager>();
             var builder = new DbContextOptionsBuilder<TenEightVideoDbContext>();
             builder.UseSqlServer(connectionString);
@@ -151,6 +167,7 @@ namespace TenEightVideo.JobRunner
         {
             try
             {
+                _logger?.LogInformation("Starting Monthly Warranty Report Job.");
                 var settings = _configuration!.GetSection("AppSettings").Get<AppSettings>();
                 if (settings == null)
                     throw new Exception("AppSettings section is missing from configuration.");

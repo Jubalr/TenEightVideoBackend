@@ -13,5 +13,16 @@ namespace TenEightVideo.Web.Data
             : base(options)
         {
         }
+
+        public override IEnumerable<WarrantyRequestPart> GetAll(Func<WarrantyRequestPart, bool> selector)
+        {
+            using (var context = GetDataContext())
+            {
+                return context.WarrantyRequestParts
+                    .Include(wrp => wrp.WarrantyRequest)
+                    .Where(selector)
+                    .ToArray();
+            }
+        }
     }
 }

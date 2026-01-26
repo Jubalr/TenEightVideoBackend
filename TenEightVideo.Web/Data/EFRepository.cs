@@ -93,7 +93,7 @@ namespace TenEightVideo.Web.Data
             }
         }
 
-        public IEnumerable<T> GetAll(Func<T, bool> selector)
+        public virtual IEnumerable<T> GetAll(Func<T, bool> selector)
         {
             using (var context = GetDataContext())
             {

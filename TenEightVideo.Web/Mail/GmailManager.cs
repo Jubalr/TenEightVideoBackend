@@ -62,7 +62,7 @@ namespace TenEightVideo.Web.Mail
                 var message = new MimeMessage()
                 {
                     Subject = subject,
-                    From = { new MailboxAddress("Sender", sender.Address) },
+                    From = { new MailboxAddress("Web Server", sender.Address) },
                     To = { new MailboxAddress("Recipient", recipient.Address) },
                     Body = new TextPart(MimeKit.Text.TextFormat.Html)
                     {
