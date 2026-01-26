@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>Ten8VideoJobRunner</AssemblyName>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
     <UserSecretsId>5bb9d39a-79e6-416a-95f9-852f4a904a8a</UserSecretsId>
   </PropertyGroup>
 
