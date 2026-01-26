@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "TenEightVideo.JobRunner": {
+      "commandName": "Project",
+      "commandLineArgs": "-job YearlyWarrantyReport",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
