@@ -119,8 +119,8 @@ namespace TenEightVideo.JobRunner
                 var sent = processor.ProcessYearlyWarrantyReport(emailSender, recipient, bcc);
                 if (sent)
                 {
-                    Console.WriteLine($"Yearly Warranty Part Request Report sent to {settings.ServiceEmailAddress}.");
-                    _logger?.LogInformation($"Yearly Warranty Part Request Report sent to {settings.ServiceEmailAddress}.");
+                    Console.WriteLine($"Yearly Warranty Part Request Report sent to: {recipient.Address}, bcc: {bcc?.Address ?? "N/A"}.");
+                    _logger?.LogInformation($"Yearly Warranty Part Request Report sent to {recipient.Address}, bcc: {bcc?.Address ?? "N/A"}.");
                 }
                 else
                 {
@@ -186,8 +186,8 @@ namespace TenEightVideo.JobRunner
                 var sent = processor.ProcessMonthlyWarrantyReport(emailSender, recipient, bcc);
                 if (sent)
                 {
-                    Console.WriteLine($"Monthly Warranty Part Request Report sent to {settings.ServiceEmailAddress}.");
-                    _logger?.LogInformation($"Monthly Warranty Part Request Report sent to {settings.ServiceEmailAddress}.");
+                    Console.WriteLine($"Monthly Warranty Part Request Report sent to: {recipient.Address}, bcc: {bcc?.Address ?? "N/A"}");
+                    _logger?.LogInformation($"Monthly Warranty Part Request Report sent to {recipient.Address}, bcc: {bcc?.Address ?? "N/A"}.");
                 }
                 else
                 {
