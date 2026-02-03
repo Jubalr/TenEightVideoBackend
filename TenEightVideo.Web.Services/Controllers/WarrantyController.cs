@@ -36,7 +36,7 @@ namespace TenEightVideo.Web.Services.Controllers
                 info.RequestId = request.Id;
 
                 var sender = new MailAddress(ApiSettings.ServerEmailAddress!);
-                var recipient = new MailAddress(ApiSettings.SalesEmailAddress!);
+                var recipient = new MailAddress(ApiSettings.ServiceEmailAddress!);
                 _mailManager.SendWarrantyNotification(sender, recipient, info);
                 return Ok("Warranty parts notification email sent successfully.");
             }
