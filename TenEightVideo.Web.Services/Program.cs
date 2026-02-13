@@ -1,10 +1,13 @@
 
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using TenEightVideo.Web.Configuration;
 using TenEightVideo.Web.Data;
 using TenEightVideo.Web.Mail;
+using TenEightVideo.Web.Updates;
 using TenEightVideo.Web.Warranty;
 
 
@@ -17,6 +20,7 @@ namespace TenEightVideo.Web.Services
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection(ApiSettings.SECTION_NAME));
+            builder.Services.Configure<UpdateSettings>(builder.Configuration.GetSection(UpdateSettings.SECTION_NAME));
 
             // Add services to the container.
             builder.Services.AddLogging(loggingBuilder => 
@@ -71,6 +75,19 @@ namespace TenEightVideo.Web.Services
             });
 
             builder.Services.AddScoped<IWarrantyRequestManager, WarrantyRequestManager>();
+            builder.Services.AddScoped<IUpdateChecker, UpdateChecker>();
+
+            // Rate limiting: 10 requests per 60 seconds per IP for update checks
+            builder.Services.AddRateLimiter(options =>
+            {
+                options.AddFixedWindowLimiter("updates", limiterOptions =>
+                {
+                    limiterOptions.PermitLimit = 10;
+                    limiterOptions.Window = TimeSpan.FromSeconds(60);
+                    limiterOptions.QueueLimit = 0;
+                });
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            });
 
             var connectionString = builder.Configuration.GetConnectionString("TenEightVideo");
             builder.Services.AddDbContext<TenEightVideoDbContext>(options => options.UseSqlServer(connectionString));
@@ -95,6 +112,7 @@ namespace TenEightVideo.Web.Services
                 app.UseCors(webApiConsumersProd);
             }
 
+            app.UseRateLimiter();
             app.UseAuthorization();
 
             app.MapControllers();
